@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
     do{
     workingTime = 0;
     srand (time(NULL));
-    cout<<"Enter size ";
+    cout<<"Enter array size for work packages: ";
     cin>>size;
     workPackage = new int[size];
     for(int i =0; i<size;i++){
