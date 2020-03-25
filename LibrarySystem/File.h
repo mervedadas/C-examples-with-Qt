@@ -8,53 +8,59 @@
 #include<QIODevice>
 #include "Book.h"
 
-//using namesapce std;
+using namespace std;
 
-//class File{
-//public:
-//    QString file_name;
+class File{
+public:
+    QString file_name;
 
-//    File(QString f_name){
-//        this.file_name = f_name;
-//    }
+    File(QString name){
+        this->file_name=name;
+        QFile file(name+".txt");
+        if(!file.open(QFile::ReadWrite | QFile::Text)){
+            cout << "Could not open file.";
+            return;
+        }
+    }
 
-//    void openFile(QString f_name){
-//        QFile file(f_name);
-//        if ( file.open(QIODevice::ReadWrite) ){
-//            cout<< "File opened";
-//        }
-//        else
-//            cout<<"File could not be opened.";
+    void readFile(QString name){
+        QFile file(name+".txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
 
-//    }
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            //process_line(line);   //???
+        }
+    }
 
-//    void writeFile(File f, Book b){
-//        if(!f.open(QIODevice::ReadWrite | QIODevice::Text))
-//             cout<<"File could not be opened.";
-//        else{
-//             QTextStream file(&f); // :(
-//             file<<b.book_name;
+    void writeFile(QString name){
+        QFile file(name+".txt");
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+            return;
+        QTextStream out(&file);
+//        out << "QFile Tutorial";   //burası değişecek
+//        file.flush();
+//        file.close();
+    }
 
-//        }
+    bool existing(QString u, QString p, QString f_name){
+        QFile file(f_name+".txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            cout<<"file could not be opened.";
+            return false;
+        }
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            if(line == u)
+                return true;
+        }
+    }
 
 
-//    }
-
-//    void searchFile(QString search){
-//        if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
-//             return;
-
-//         QTextStream in(&file);
-//         while (!in.atEnd()) {
-//             QString line = in.readLine();
-//             if(line == search){
-//                 //
-//                 continue;
-//             }
-//             process_line(line);
-//         }
-//   }
-
-//};
+};
 
 #endif // FILE_H

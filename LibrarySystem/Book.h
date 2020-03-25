@@ -7,16 +7,14 @@
 #include<QDebug>
 using namespace std;
 class Book{
-private:
 
+public:
     QString book_name;
     QString author_name;
     int ISBN;
     int page_number;
     int publish_year;
     QList<QString> keywords;
-
-public:
 
     Book(QString book_name,QString author_name,int ISBN,int page_number,int publish_year,QList<QString> keywords){
         cout<<"Object created"<<endl;
@@ -28,8 +26,6 @@ public:
         this->keywords = keywords;
 
     }
-
-
     void printBook(){
         qDebug()<<"Book Name: "<< this->book_name;
         qDebug()<<"Author Name: " <<this->author_name;
@@ -38,19 +34,6 @@ public:
         qDebug()<< "Publish Year: "<<this->publish_year;
         qDebug()<< "Keywords: "<< this->keywords;
     }
-
-//    void friend addBook(Book book){
-//        book.printBook();
-//        File file("Book");
-//        file.writeFile(book);
-
-
-
-//   }
-
-
-
-
 
 };
 
