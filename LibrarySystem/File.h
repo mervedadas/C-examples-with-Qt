@@ -1,8 +1,6 @@
 #ifndef FILE_H
 #define FILE_H
 #include<QFile>
-#include<iostream>
-#include<QString>
 #include<QTextStream>
 #include<QDataStream>
 #include<QIODevice>
@@ -15,15 +13,21 @@ public:
     QString file_name;
 
     File(QString name){
+        cout<<"file constructor"<<endl;
         this->file_name=name;
         QFile file(name+".txt");
         if(!file.open(QFile::ReadWrite | QFile::Text)){
-            cout << "Could not open file.";
+            cout << "Could not open file."<<endl;
             return;
         }
+        else{
+            cout<<"File opening"<<endl;
+        }
+
     }
 
-    void readFile(QString name){
+
+    static void readFile(QString name){
         QFile file(name+".txt");
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
             return;
@@ -31,36 +35,38 @@ public:
         QTextStream in(&file);
         while (!in.atEnd()) {
             QString line = in.readLine();
+            cout << "hello"<<endl;
             //process_line(line);   //???
         }
     }
 
-    void writeFile(QString name){
+   static void writeFile(QString name,QString u,QString p){
         QFile file(name+".txt");
-        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
             return;
         QTextStream out(&file);
-//        out << "QFile Tutorial";   //burası değişecek
-//        file.flush();
-//        file.close();
+        out << u << endl;
+        out << p << endl;
+
     }
 
-    bool existing(QString u, QString p, QString f_name){
-        QFile file(f_name+".txt");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-            cout<<"file could not be opened.";
-            return false;
-        }
+   static bool existingUser(QString u, QString p, QString f_name){
+       QFile file(f_name+".txt");
+       if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+           cout<<"file could not be opened.";
+           return false;
+       }
 
-        QTextStream in(&file);
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            if(line == u)
-                return true;
-        }
-    }
+       QTextStream in(&file);
+       while (!in.atEnd()) {
+           QString username = in.readLine();
+           QString password = in.readLine();
+           if(username == u && password==p)
+               return true;
+       }
+       return false;
+   }
 
 
 };
-
 #endif // FILE_H
