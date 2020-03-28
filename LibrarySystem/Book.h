@@ -11,12 +11,14 @@ class Book{
 public:
     QString book_name;
     QString author_name;
-    int ISBN[9];
+    QString ISBN;
     int page_number;
     int publish_year;
     QList<QString> keywords;
 
-    Book(QString book_name,QString author_name,int ISBN[9],int page_number,int publish_year,QList<QString> keywords){
+    Book();
+
+    Book(QString book_name,QString author_name,QString ISBN,int page_number,int publish_year,QList<QString> keywords){
         cout<<"Object created"<<endl;
         this->book_name=book_name;
         this->author_name=author_name;
@@ -31,9 +33,7 @@ public:
     void printBook(){
         qDebug()<<"Book Name: "<< this->book_name;
         qDebug()<<"Author Name: " <<this->author_name;
-        for(int i=0;i<9;i++){
-            cout<<this->ISBN[i];
-        }
+        qDebug()<<"ISBN: " <<this->ISBN;
         qDebug()<< "Page Number: "<<this->page_number;
         qDebug()<< "Publish Year: "<<this->publish_year;
         qDebug()<< "Keywords: "<< this->keywords;
