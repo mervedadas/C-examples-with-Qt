@@ -13,8 +13,8 @@ private:
 
 public:
     User(int, QString, QString);
-    static void createUser();
-    static int menu();
+    ~ User();
+    static void createUser(QString, QString);
 
 };
 

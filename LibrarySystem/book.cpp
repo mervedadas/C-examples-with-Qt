@@ -43,7 +43,6 @@ Book::Book(QString book_name,QString author_name,QString ISBN,int page_number,in
 }
 
 
-
 void Book::printBook(){
     qDebug()<<"Book Name:" << this->book_name;
     qDebug()<<"Author Name: " <<this->author_name;
@@ -62,8 +61,9 @@ void Book::addBook(){
     QList<QString> keywords;
 
     qDebug()<<"Please Enter Book information";
-    qDebug()<<"Book Name: ";
-
+    QTextStream dene(stdin);
+    book_name = dene.readLine();
+    qDebug()<<"Book Name: "<<endl;
     QTextStream b_name(stdin);
     book_name = b_name.readLine();
 
@@ -85,6 +85,9 @@ void Book::addBook(){
     qDebug()<<"Book' Keywords";
     QTextStream kw(stdin);
     keywords.append(kw.readLine());
+
+    QTextStream dene1(stdin);
+    book_name = dene1.readLine();
 
     File::writeFile("Book",book_name,author_name,ISBN,page_number,publish_year,keywords);
 

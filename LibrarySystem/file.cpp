@@ -41,7 +41,6 @@ QList<Book> File::readFile(QString name){
 //            }
 //            i++;
 //        }
-
         Book b(bookname,authorName,ISBN,pagenumber.toInt(),publishyear.toInt(),keywords);
         all.append(b);
     }
