@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Book.h"
 
 void User::createUser(){
 
@@ -47,21 +48,29 @@ int User::menu(){
 
     }
     else if(choice=='D'){
-        Book::deleteBook();
+        QList<Book> all ;
+        all=File::readFile("Book");
+        all = Book::deleteBook(all);
+        //write again file
+        File::writeFile("Book",all);
 
     }
     else if(choice=='S'){
+        QList<Book> all ;
         qDebug()<<"Sorted Book List for publish year ";
-        File::readFile("Book");
-       // Book::sortBook(books);
+        all=File::readFile("Book");
+        Book::sortBook(all);
 
     }
     else if(choice=='X'){
-        QList<Book> all;
+        QList<Book> all ;
         qDebug()<<"Displaying all books ";
-        File::readFile("Book");
-        Book::displayAllBooks();
+        all=File::readFile("Book");
+        for(int i =0; i<all.size();i++){
+            all[i].printBook();
+        }
     }
+
     }while(choice!='Q');
     return 0;
 }

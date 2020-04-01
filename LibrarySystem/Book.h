@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <iostream>
 
+
 class Book{
 private:
     QString book_name;
@@ -18,9 +19,14 @@ public:
     Book(QString,QString,QString,int,int,QList<QString>);
     void printBook();
     static void addBook();
-    static void deleteBook();
+    static QList<Book> deleteBook(QList<Book> b);
     static void sortBook(const QList<Book> b);
-    static void displayAllBooks();
+    QString getBook_name() const;
+    QString getAuthor_name() const;
+    QString getISBN() const;
+    int getPublish_year() const;
+    QList<QString> getKeywords() const;
+    int getPage_number() const;
 };
 
 #endif // BOOK_H

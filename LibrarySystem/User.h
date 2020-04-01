@@ -1,5 +1,6 @@
 #ifndef USER_H
 #define USER_H
+#include <iostream>
 #include<QString>
 #include<QTextStream>
 #include "File.h"

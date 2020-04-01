@@ -1,7 +1,7 @@
 #include "File.h"
+#include "Book.h"
 
 File::File(QString name){
-    qDebug()<<"file constructor";
     this->file_name=name;
     QFile file(name+".txt");
     if(!file.open(QFile::ReadWrite | QFile::Text)){
@@ -13,12 +13,12 @@ File::File(QString name){
     }
 }
 
-void File::readFile(QString name){
+QList<Book> File::readFile(QString name){
     QFile file(name+".txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug()<<"file couldnot open and could not read!";
+        qDebug()<<"file could not open and could not read!";
     }
-
+    QList<Book> all;
     QTextStream in(&file);
     while (!in.atEnd()) {
         QString bookname = in.readLine();
@@ -26,11 +26,28 @@ void File::readFile(QString name){
         QString ISBN = in.readLine();
         QString pagenumber = in.readLine();
         QString publishyear = in.readLine();
-        QList<QString> keywords = {" ", " "};
+        QString keywors = in.readLine();
+        QList<QString> keywords;
+//        qDebug()<<"KEYWORS"<<keywors;
+//        int i=0;
+//        int j=0;
+//        QString a;
+//        while(keywors[i]!='\n'){
+//            i=0;
+//            a[i]=keywors[i];
+//            if(keywors[i]==','){
+//                keywords[j]=a;
+//                j++;
+//            }
+//            i++;
+//        }
+
         Book b(bookname,authorName,ISBN,pagenumber.toInt(),publishyear.toInt(),keywords);
-//        books.append(b);
+        all.append(b);
     }
+    return all;
 }
+
 
 void File::writeFile(QString name, QString u, QString p){
     QFile file(name+".txt");
@@ -55,8 +72,25 @@ void File::writeFile(QString name, QString book_name,QString author_name,QString
     out << publish_year << endl;
     for(int i=0;i<keywords.size();i++)
         out << keywords[i] << " ";
-
     out << endl;
+}
+
+void File::writeFile(QString name,const QList<Book> all)
+{    QFile file(name+".txt");
+     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+         return;
+     QTextStream out(&file);
+      for(int i=0;i<all.size();i++){
+     out<< all[i].getBook_name()<< endl;
+     out << all[i].getAuthor_name() << endl;
+     out << all[i].getISBN() << endl;
+     out << all[i].getPage_number() << endl;
+     out << all[i].getPublish_year() << endl;
+     for(int k=0;i<(all[i].getKeywords()).size();k++)
+         out << (all[i].getKeywords())[k]<< " ";
+     out << endl;
+    }
+
 }
 
 bool File::existingUser(QString name, QString u, QString p){
