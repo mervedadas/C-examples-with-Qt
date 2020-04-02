@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
     User user(id,username,password);
 
 
-
     char choice;
     do{
     qDebug() <<"MENU"<<endl;

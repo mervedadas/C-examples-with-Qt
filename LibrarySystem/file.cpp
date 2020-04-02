@@ -28,19 +28,8 @@ QList<Book> File::readFile(QString name){
         QString publishyear = in.readLine();
         QString keywors = in.readLine();
         QList<QString> keywords;
-//        qDebug()<<"KEYWORS"<<keywors;
-//        int i=0;
-//        int j=0;
-//        QString a;
-//        while(keywors[i]!='\n'){
-//            i=0;
-//            a[i]=keywors[i];
-//            if(keywors[i]==','){
-//                keywords[j]=a;
-//                j++;
-//            }
-//            i++;
-//        }
+        auto parts = keywors.split(',');
+        keywords =parts;
         Book b(bookname,authorName,ISBN,pagenumber.toInt(),publishyear.toInt(),keywords);
         all.append(b);
     }
@@ -89,6 +78,7 @@ void File::writeFile(QString name,const QList<Book> all)
          out << (all[i].getKeywords())[k]<< " ";
      out << endl;
     }
+
 
 }
 

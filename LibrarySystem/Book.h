@@ -27,6 +27,7 @@ public:
     int getPublish_year() const;
     QList<QString> getKeywords() const;
     int getPage_number() const;
+    static QList<Book> sorting(QList<Book> b);
 };
 
 #endif // BOOK_H

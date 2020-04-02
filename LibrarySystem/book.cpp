@@ -61,8 +61,7 @@ void Book::addBook(){
     QList<QString> keywords;
 
     qDebug()<<"Please Enter Book information";
-    QTextStream dene(stdin);
-    book_name = dene.readLine();
+
     qDebug()<<"Book Name: "<<endl;
     QTextStream b_name(stdin);
     book_name = b_name.readLine();
@@ -86,9 +85,6 @@ void Book::addBook(){
     QTextStream kw(stdin);
     keywords.append(kw.readLine());
 
-    QTextStream dene1(stdin);
-    book_name = dene1.readLine();
-
     File::writeFile("Book",book_name,author_name,ISBN,page_number,publish_year,keywords);
 
 }
@@ -108,29 +104,25 @@ QList<Book> Book::deleteBook(QList<Book> b){
 }
 
 void Book::sortBook(const QList<Book> b){
-    int arr[b.size()];
-    for (int i =0; i<b.size();i++){
-       arr[i]= b[i].publish_year;
-       qDebug()<<b[i].book_name << b[i].publish_year;
-    }
-    bubbleSort(arr,b.size());
+
+      QList<Book> sortbook = sorting(b);
+      for(int i=0;i<sortbook.size();i++){
+          sortbook[i].printBook();
+      }
 }
 
 
-void bubbleSort(int arr[],int n){
-   int temp;
-        for(int i =0; i < n;++i){
-            for(int k=0;k<n;++k){
-                if(arr[i]<arr[k]){
-                  temp=arr[i];
-                  arr[i]=arr[k];
-                  arr[k]=temp;
-                }
+QList<Book> Book::sorting(QList<Book> b){
+    QList<Book> temp;
+    temp=b;
+    for(int i=0;i<b.size();i++){
+        for(int k=0;k<b.size();k++){
+            if(b[i].getPublish_year()<b[k].getPublish_year()){
+                temp[i]=b[i];
+                b[i]=b[k];
+                b[k]=temp[i];
             }
         }
-        for(int i=0;i<n;i++){
-            qDebug()<<arr[i];
-        }
-        qDebug();
-
+    }
+    return b;
 }
