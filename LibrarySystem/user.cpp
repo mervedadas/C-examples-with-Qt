@@ -1,7 +1,7 @@
 #include "User.h"
 #include "Book.h"
 
-User::User(int, QString u, QString p)
+User::User(int id, QString u, QString p)
 {   this->id=id;
     this->username = u;
     this->password = p;

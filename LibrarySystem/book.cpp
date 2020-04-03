@@ -89,26 +89,39 @@ void Book::addBook(){
 
 }
 
-QList<Book> Book::deleteBook(QList<Book> b){
+void Book::deleteBook(){
+    QList<Book> all ;
+    all=File::readFile("Book");
     QString book_name;
     qDebug()<<"Please enter book name that want to delete";
     QTextStream b_name(stdin);
     book_name = b_name.readLine();
 
-    for(int i =0;i<b.size();i++){
-        if(b[i].book_name==book_name){
-            b.removeAt(i);
+    for(int i =0;i<all.size();i++){
+        if(all[i].book_name==book_name){
+            all.removeAt(i);
         }
     }
-    return b;
+    File::writeFile("Book",all);
+
 }
 
-void Book::sortBook(const QList<Book> b){
-
-      QList<Book> sortbook = sorting(b);
+void Book::sortBook(){
+     QList<Book> all ;
+      all=File::readFile("Book");
+      QList<Book> sortbook = sorting(all);
       for(int i=0;i<sortbook.size();i++){
           sortbook[i].printBook();
       }
+}
+
+void Book::displayingAllBooks()
+{
+    QList<Book> all ;
+    all=File::readFile("Book");
+    for(int i =0; i<all.size();i++){
+        all[i].printBook();
+    }
 }
 
 

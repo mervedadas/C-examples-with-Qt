@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 
     User user(id,username,password);
 
-
     char choice;
     do{
     qDebug() <<"MENU"<<endl;
@@ -32,27 +31,17 @@ int main(int argc, char *argv[])
 
     }
     else if(choice=='D'){
-        QList<Book> all ;
-        all=File::readFile("Book");
-        all = Book::deleteBook(all);
-        //write again file
-        File::writeFile("Book",all);
+        Book::deleteBook();
 
     }
     else if(choice=='S'){
-        QList<Book> all ;
         qDebug()<<"Sorted Book List for publish year ";
-        all=File::readFile("Book");
-        Book::sortBook(all);
+        Book::sortBook();
 
     }
     else if(choice=='X'){
-        QList<Book> all ;
-        qDebug()<<"Displaying all books ";
-        all=File::readFile("Book");
-        for(int i =0; i<all.size();i++){
-            all[i].printBook();
-        }
+        qDebug()<<"All Books ";
+        Book::displayingAllBooks();
     }
 
     }while(choice!='Q');

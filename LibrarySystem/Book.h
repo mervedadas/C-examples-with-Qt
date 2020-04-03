@@ -19,8 +19,9 @@ public:
     Book(QString,QString,QString,int,int,QList<QString>);
     void printBook();
     static void addBook();
-    static QList<Book> deleteBook(QList<Book> b);
-    static void sortBook(const QList<Book> b);
+    static void deleteBook();
+    static void sortBook();
+    static void displayingAllBooks();
     QString getBook_name() const;
     QString getAuthor_name() const;
     QString getISBN() const;
@@ -28,6 +29,7 @@ public:
     QList<QString> getKeywords() const;
     int getPage_number() const;
     static QList<Book> sorting(QList<Book> b);
+
 };
 
 #endif // BOOK_H
