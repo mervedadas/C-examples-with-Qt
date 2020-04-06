@@ -1,9 +1,7 @@
 #ifndef USER_H
 #define USER_H
-#include <iostream>
 #include<QString>
-#include<QTextStream>
-#include "File.h"
+
 
 class User{
 private:
@@ -17,7 +15,5 @@ public:
     static void createUser(QString, QString);
 
 };
-
-
 
 #endif // USER_H

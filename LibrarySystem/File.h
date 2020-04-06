@@ -2,7 +2,7 @@
 #define FILE_H
 #include<QFile>
 #include "Book.h"
-#include <QDebug>
+
 
 class File{
 private:

@@ -1,12 +1,14 @@
+#include <QDebug>
 #include "User.h"
 #include "Book.h"
+#include "File.h"
+
 
 User::User(int id, QString u, QString p)
 {   this->id=id;
     this->username = u;
     this->password = p;
     createUser(u,p);
-
 }
 
 User::~User()

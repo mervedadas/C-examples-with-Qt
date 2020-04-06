@@ -1,5 +1,8 @@
 #include <QCoreApplication>
+#include <iostream>
+#include <QDebug>
 #include <User.h>
+#include <Book.h>
 
 int main(int argc, char *argv[])
 {

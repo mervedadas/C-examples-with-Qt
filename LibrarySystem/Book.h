@@ -1,9 +1,6 @@
 #ifndef BOOK_H
 #define BOOK_H
 #include <QList>
-#include <QDebug>
-#include <iostream>
-
 
 class Book{
 private:

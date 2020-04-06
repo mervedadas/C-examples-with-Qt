@@ -1,3 +1,5 @@
+#include <QDebug>
+#include <iostream>
 #include "Book.h"
 #include "File.h"
 QList<Book> books;

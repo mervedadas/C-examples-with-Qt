@@ -1,3 +1,4 @@
+#include <QDebug>
 #include "File.h"
 #include "Book.h"
 
