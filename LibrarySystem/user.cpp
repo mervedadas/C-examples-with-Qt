@@ -4,11 +4,24 @@
 #include "File.h"
 
 
-User::User(int id, QString u, QString p)
-{   this->id=id;
+QString User::getUsername() const
+{
+    return username;
+}
+
+QString User::getPassword() const
+{
+    return password;
+}
+
+User::User(QString u, QString p)
+{
     this->username = u;
     this->password = p;
-    createUser(u,p);
+
+    User *user = new User(u,p);
+    File file("User");
+    createUser(*user,file);
 }
 
 User::~User()
@@ -16,9 +29,9 @@ User::~User()
     qDebug()<<"User deconstructor.";
 }
 
-void User::createUser(QString username, QString password){
-    int id=0;
-    if(File::existingUser("User",username,password)){
+void User::createUser(User u, File f){
+
+    if(f.existingUser(f.getFile_name(),u)){
         return;
     }
     else{
@@ -31,8 +44,7 @@ void User::createUser(QString username, QString password){
         QTextStream p(stdin);
         qDebug()<<"Password: ";
         QString password = p.readLine();
-        id+=1;
-        File::writeFile("User",username,password);
+        f.writeFileU(u);
     }
 }
 

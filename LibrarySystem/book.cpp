@@ -42,87 +42,61 @@ Book::Book(QString book_name,QString author_name,QString ISBN,int page_number,in
     this->page_number=page_number;
     this->publish_year=publish_year;
     this->keywords = keywords;
-}
-
-
-void Book::printBook(){
-    qDebug()<<"Book Name:" << this->book_name;
-    qDebug()<<"Author Name: " <<this->author_name;
-    qDebug()<<"ISBN: " <<this->ISBN;
-    qDebug()<< "Page Number: "<<this->page_number;
-    qDebug()<< "Publish Year: "<<this->publish_year;
-    qDebug()<< "Keywords: "<< this->keywords;
-}
-
-void Book::addBook(){
-    QString book_name;
-    QString author_name;
-    QString ISBN;
-    int page_number;
-    int publish_year;
-    QList<QString> keywords;
-
-    qDebug()<<"Please Enter Book information";
-
-    qDebug()<<"Book Name: "<<endl;
-    QTextStream b_name(stdin);
-    book_name = b_name.readLine();
-
-    qDebug()<<"Author Name: ";
-    QTextStream a_name(stdin);
-    author_name = a_name.readLine();
-
-    qDebug() <<"ISBN(Should be 9 digits): ";
-    QTextStream isbn(stdin);
-    ISBN = isbn.readLine();
-
-    qDebug() <<"Page Number: ";
-    std::cin>>page_number;
-
-
-    qDebug()<<endl<<"Publish Year";
-    std::cin>>publish_year;
-
-    qDebug()<<"Book' Keywords";
-    QTextStream kw(stdin);
-    keywords.append(kw.readLine());
-
-    File::writeFile("Book",book_name,author_name,ISBN,page_number,publish_year,keywords);
+      //Book *book = new Book(book_name,author_name,ISBN,page_number,publish_year,keywords); // hiç emin değilim
 
 }
 
-void Book::deleteBook(){
+void Book::printBook(Book b)
+{
+    qDebug()<<"Book Name:" << b.book_name;
+    qDebug()<<"Author Name: " <<b.author_name;
+    qDebug()<<"ISBN: " << b.ISBN;
+    qDebug()<< "Page Number: "<<b.page_number;
+    qDebug()<< "Publish Year: "<<b.publish_year;
+    for(int i =0; i<b.keywords.size();i++)
+        qDebug()<< "Keywords: "<< b.keywords[i];
+}
+
+
+
+
+void Book::addBook(Book b){
+
+    File file("Book");
+    File::writeFileB(file,b);
+
+}
+
+void Book::deleteBook(QString bookname){
     QList<Book> all ;
-    all=File::readFile("Book");
-    QString book_name;
-    qDebug()<<"Please enter book name that want to delete";
-    QTextStream b_name(stdin);
-    book_name = b_name.readLine();
+    File file("Book");
+    all=File::readFile(file);
 
     for(int i =0;i<all.size();i++){
-        if(all[i].book_name==book_name){
+        if(all[i].book_name==bookname){
             all.removeAt(i);
         }
     }
-    File::writeFile("Book",all);
+    File::writeFile(file,all);
 
 }
 
 void Book::sortBook(){
      QList<Book> all ;
-      all=File::readFile("Book");
+     File file("Book");
+     all=File::readFile(file);
       QList<Book> sortbook = sorting(all);
       for(int i=0;i<sortbook.size();i++){
-          sortbook[i].printBook();
+          printBook(sortbook[i]);
       }
 }
 
 void Book::displayingAllBooks()
-{
+{   File file("Book");
     QList<Book> all ;
-    all=File::readFile("Book");
+    all=File::readFile(file);
     for(int i =0; i<all.size();i++){
-        all[i].printBook();
+        printBook(all[i]);
     }
 }
 

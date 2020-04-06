@@ -14,9 +14,9 @@ private:
 public:
     Book();
     Book(QString,QString,QString,int,int,QList<QString>);
-    void printBook();
-    static void addBook();
-    static void deleteBook();
+    static void printBook(Book b);
+    static void addBook(Book b);
+    static void deleteBook(QString bookname);
     static void sortBook();
     static void displayingAllBooks();
     QString getBook_name() const;

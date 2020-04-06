@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     qDebug()<<"Password: ";
     QString password = p.readLine();
 
-    User user(id,username,password);
+    User user(username,password);
 
     char choice;
     do{
@@ -30,11 +30,49 @@ int main(int argc, char *argv[])
     std::cin >> choice;
 
     if(choice=='A'){
-        Book::addBook();
+        QString book_name;
+        QString author_name;
+        QString ISBN;
+        int page_number;
+        int publish_year;
+        QList<QString> keywords;
+
+        qDebug()<<"Please Enter Book information";
+
+        qDebug()<<"Book Name: "<<endl;
+        QTextStream b_name(stdin);
+        book_name = b_name.readLine();
+
+        qDebug()<<"Author Name: ";
+        QTextStream a_name(stdin);
+        author_name = a_name.readLine();
+
+        qDebug() <<"ISBN(Should be 9 digits): ";
+        QTextStream isbn(stdin);
+        ISBN = isbn.readLine();
+
+        qDebug() <<"Page Number: ";
+        std::cin>>page_number;
+
+
+        qDebug()<<endl<<"Publish Year";
+        std::cin>>publish_year;
+
+        qDebug()<<"Book' Keywords";
+        QTextStream kw(stdin);
+        keywords.append(kw.readLine());
+
+        Book b(book_name,author_name,ISBN,page_number,publish_year,keywords);
+        Book::addBook(b);
 
     }
     else if(choice=='D'){
-        Book::deleteBook();
+        QString book_name;
+        qDebug()<<"Please enter book name that want to delete";
+        QTextStream b_name(stdin);
+        book_name = b_name.readLine();
+
+        Book::deleteBook(book_name);
 
     }
     else if(choice=='S'){

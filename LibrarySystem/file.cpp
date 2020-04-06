@@ -1,10 +1,18 @@
 #include <QDebug>
 #include "File.h"
 #include "Book.h"
+#include "User.h"
+
+QString File::getFile_name() const
+{
+    return file_name;
+}
 
 File::File(QString name){
     this->file_name=name;
-    QFile file(name+".txt");
+    File *f = new File(name);
+
+    QFile file(f->getFile_name()+".txt");
     if(!file.open(QFile::ReadWrite | QFile::Text)){
         qDebug() << "Could not open file.";
         return;
@@ -12,13 +20,14 @@ File::File(QString name){
     else{
         qDebug()<<"File opening"<<endl;
     }
+
 }
 
-QList<Book> File::readFile(QString name){
-    QFile file(name+".txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        qDebug()<<"file could not open and could not read!";
-    }
+QList<Book> File::readFile(File f){
+      QFile file(f.getFile_name()+".txt");
+//    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+//        qDebug()<<"file could not open and could not read!";
+//    }
     QList<Book> all;
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -38,34 +47,34 @@ QList<Book> File::readFile(QString name){
 }
 
 
-void File::writeFile(QString name, QString u, QString p){
-    QFile file(name+".txt");
+void File::writeFileU(User u){
+    QFile file(this->file_name+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
-    out << u << endl;
-    out << p << endl;
+    out << u.getUsername() << endl;
+    out << u.getPassword() << endl;
 
 }
 
-void File::writeFile(QString name, QString book_name,QString author_name,QString ISBN,int page_number,int publish_year,QList<QString> keywords)
+void File::writeFileB(File f, Book b)
 {
-    QFile file(name+".txt");
+    QFile file(f.getFile_name()+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
-    out<< book_name<< endl;
-    out << author_name << endl;
-    out << ISBN << endl;
-    out << page_number << endl;
-    out << publish_year << endl;
-    for(int i=0;i<keywords.size();i++)
-        out << keywords[i] << " ";
+    out<< b.getBook_name()<< endl;
+    out << b.getAuthor_name() << endl;
+    out << b.getISBN() << endl;
+    out << b.getPage_number() << endl;
+    out << b.getPublish_year() << endl;
+    for(int i=0;i<b.getKeywords().size();i++)
+        out << (b.getKeywords())[i] << " ";
     out << endl;
 }
 
-void File::writeFile(QString name,const QList<Book> all)
-{    QFile file(name+".txt");
+void File::writeFile(File f,const QList<Book> all)
+{    QFile file(f.getFile_name()+".txt");
      if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
          return;
      QTextStream out(&file);
@@ -83,8 +92,8 @@ void File::writeFile(QString name,const QList<Book> all)
 
 }
 
-bool File::existingUser(QString name, QString u, QString p){
-    QFile file(name+".txt");
+bool File::existingUser(File f, User u){
+    QFile file(f.getFile_name()+".txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         qDebug()<<"file could not be opened.";
         return false;
@@ -94,7 +103,7 @@ bool File::existingUser(QString name, QString u, QString p){
     while (!in.atEnd()) {
         QString username = in.readLine();
         QString password = in.readLine();
-        if(username == u && password==p)
+        if(username == u.getUsername() && password==u.getPassword())
             return true;
     }
     return false;
