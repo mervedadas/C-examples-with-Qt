@@ -4,10 +4,8 @@
 #include <User.h>
 #include <Book.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
-    QCoreApplication a(argc, argv);
-    int id=0;
     QTextStream u(stdin);
     qDebug()<<"Username: ";
     QString username = u.readLine();
@@ -86,7 +84,6 @@ int main(int argc, char *argv[])
     }
 
     }while(choice!='Q');
-    id++;
+    return 0;
 
-    return a.exec();
 }

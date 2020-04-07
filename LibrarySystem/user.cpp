@@ -29,9 +29,9 @@ User::~User()
     qDebug()<<"User deconstructor.";
 }
 
-void User::createUser(User u, File f){
+void User::createUser(User user, File f){
 
-    if(f.existingUser(f.getFile_name(),u)){
+    if(f.existingUser(user)){
         return;
     }
     else{
@@ -44,7 +44,10 @@ void User::createUser(User u, File f){
         QTextStream p(stdin);
         qDebug()<<"Password: ";
         QString password = p.readLine();
-        f.writeFileU(u);
+        f.writeFileU(user);
+
+
+
     }
 }
 

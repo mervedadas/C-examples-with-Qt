@@ -63,28 +63,28 @@ void Book::printBook(Book b)
 void Book::addBook(Book b){
 
     File file("Book");
-    File::writeFileB(file,b);
+    file.writeFileB(b);
 
 }
 
 void Book::deleteBook(QString bookname){
     QList<Book> all ;
     File file("Book");
-    all=File::readFile(file);
+    all=file.readFile();
 
     for(int i =0;i<all.size();i++){
         if(all[i].book_name==bookname){
             all.removeAt(i);
         }
     }
-    File::writeFile(file,all);
+    file.writeFile(all);
 
 }
 
 void Book::sortBook(){
      QList<Book> all ;
      File file("Book");
-     all=File::readFile(file);
+     all=file.readFile();
       QList<Book> sortbook = sorting(all);
       for(int i=0;i<sortbook.size();i++){
           printBook(sortbook[i]);
@@ -94,7 +94,7 @@ void Book::sortBook(){
 void Book::displayingAllBooks()
 {   File file("Book");
     QList<Book> all ;
-    all=File::readFile(file);
+    all=file.readFile();
     for(int i =0; i<all.size();i++){
         printBook(all[i]);
     }

@@ -10,9 +10,9 @@ QString File::getFile_name() const
 
 File::File(QString name){
     this->file_name=name;
-    File *f = new File(name);
+//    File *f = new File(name);
 
-    QFile file(f->getFile_name()+".txt");
+    QFile file(file_name+".txt");
     if(!file.open(QFile::ReadWrite | QFile::Text)){
         qDebug() << "Could not open file.";
         return;
@@ -23,11 +23,11 @@ File::File(QString name){
 
 }
 
-QList<Book> File::readFile(File f){
-      QFile file(f.getFile_name()+".txt");
-//    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-//        qDebug()<<"file could not open and could not read!";
-//    }
+QList<Book> File::readFile(){
+      QFile file(file_name+".txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug()<<"file could not open and could not read!";
+    }
     QList<Book> all;
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -47,19 +47,19 @@ QList<Book> File::readFile(File f){
 }
 
 
-void File::writeFileU(User u){
-    QFile file(this->file_name+".txt");
+void File::writeFileU(User user){
+    QFile file(file_name+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
-    out << u.getUsername() << endl;
-    out << u.getPassword() << endl;
+    out << user.getUsername() << endl;
+    out << user.getPassword() << endl;
 
 }
 
-void File::writeFileB(File f, Book b)
+void File::writeFileB(Book b)
 {
-    QFile file(f.getFile_name()+".txt");
+    QFile file(file_name+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
@@ -73,8 +73,8 @@ void File::writeFileB(File f, Book b)
     out << endl;
 }
 
-void File::writeFile(File f,const QList<Book> all)
-{    QFile file(f.getFile_name()+".txt");
+void File::writeFile(const QList<Book> all)
+{    QFile file(file_name+".txt");
      if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
          return;
      QTextStream out(&file);
@@ -92,8 +92,8 @@ void File::writeFile(File f,const QList<Book> all)
 
 }
 
-bool File::existingUser(File f, User u){
-    QFile file(f.getFile_name()+".txt");
+bool File::existingUser(User u){
+    QFile file(file_name+".txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         qDebug()<<"file could not be opened.";
         return false;

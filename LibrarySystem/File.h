@@ -10,11 +10,11 @@ private:
     QString file_name;
 public:
      File(QString);
-     static QList<Book> readFile(File f);
-     void writeFileU( User u);
-     static void writeFileB(File f, Book b);
-     static void writeFile(File f, const QList<Book>);
-     static bool existingUser(File f, User u);
+     QList<Book> readFile();
+     void writeFileU(User u);
+     void writeFileB(Book b);
+     void writeFile(const QList<Book>);
+     bool existingUser(User u);
 
      QString getFile_name() const;
 };

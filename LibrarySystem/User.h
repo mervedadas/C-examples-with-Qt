@@ -12,8 +12,7 @@ private:
 public:
     User(QString username, QString password);
     ~ User();
-    static void createUser(User u, File f);
-
+    void createUser(User u, File f);
     QString getUsername() const;
     QString getPassword() const;
 };
