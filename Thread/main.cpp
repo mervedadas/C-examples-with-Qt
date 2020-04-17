@@ -1,31 +1,18 @@
-#include<thread>
-#include<QDebug>
-#include <unistd.h>
+#include <QCoreApplication>
+#include "Thread.h"
 
-void even_number();
-void odd_number();
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
 
-int main(void){
+    Thread *even = new Thread();
+    Thread *odd = new Thread();
 
-    std::thread odd(odd_number);
-    odd.join();
+    odd->odd();
+    even->even();
+    odd->wait();
+    even->wait();
 
-    std::thread even(even_number);
-    even.join();
 
-    return 0;
-}
-void even_number(){
-
-    for(int i=0;i<10;i+=2){
-      qDebug()<<i;
-    }
-
-}
-void odd_number(){
-
-    for(int i=1;i<10;i+=2){
-        qDebug()<<i;
-    }
-
+    return a.exec();
 }
