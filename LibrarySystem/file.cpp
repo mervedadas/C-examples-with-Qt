@@ -3,7 +3,7 @@
 
 File::File(QString name){
     this->file_name=name;
-    QFile file(name+".txt");
+    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
     if(!file.open(QFile::ReadWrite | QFile::Text)){
         qDebug() << "Could not open file.";
         return;
@@ -14,7 +14,7 @@ File::File(QString name){
 }
 
 QList<Book> File::readFile(QString name){
-    QFile file(name+".txt");
+    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         qDebug()<<"file could not open and could not read!";
     }
@@ -43,13 +43,15 @@ QList<Book> File::readFile(QString name){
 //        }
         Book b(bookname,authorName,ISBN,pagenumber.toInt(),publishyear.toInt(),keywords);
         all.append(b);
+//        for(int i=0;i<all.size();i++)
+//            all[i].printBook();
     }
     return all;
 }
 
 
 void File::writeFile(QString name, QString u, QString p){
-    QFile file(name+".txt");
+    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
@@ -60,11 +62,11 @@ void File::writeFile(QString name, QString u, QString p){
 
 void File::writeFile(QString name, QString book_name,QString author_name,QString ISBN,int page_number,int publish_year,QList<QString> keywords)
 {
-    QFile file(name+".txt");
+    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append))
         return;
     QTextStream out(&file);
-    out<< book_name<< endl;
+    out << book_name<< endl;
     out << author_name << endl;
     out << ISBN << endl;
     out << page_number << endl;
@@ -75,7 +77,7 @@ void File::writeFile(QString name, QString book_name,QString author_name,QString
 }
 
 void File::writeFile(QString name,const QList<Book> all)
-{    QFile file(name+".txt");
+{    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
      if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
          return;
      QTextStream out(&file);
@@ -93,7 +95,7 @@ void File::writeFile(QString name,const QList<Book> all)
 }
 
 bool File::existingUser(QString name, QString u, QString p){
-    QFile file(name+".txt");
+    QFile file("/home/dadas/Documents/qt Projects/C-examples-with-Qt/LibrarySystem/"+name+".txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         qDebug()<<"file could not be opened.";
         return false;

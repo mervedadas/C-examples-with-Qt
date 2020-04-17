@@ -33,6 +33,11 @@ int Book::getPage_number() const
     return page_number;
 }
 
+Book::~Book()
+{
+
+}
+
 Book::Book(QString book_name,QString author_name,QString ISBN,int page_number,int publish_year,QList<QString> keywords){
     this->book_name=book_name;
     this->author_name=author_name;
@@ -62,7 +67,7 @@ void Book::addBook(){
 
     qDebug()<<"Please Enter Book information";
     QTextStream dene(stdin);
-    book_name = dene.readLine();
+    QString d = dene.readLine();
     qDebug()<<"Book Name: "<<endl;
     QTextStream b_name(stdin);
     book_name = b_name.readLine();
@@ -87,7 +92,7 @@ void Book::addBook(){
     keywords.append(kw.readLine());
 
     QTextStream dene1(stdin);
-    book_name = dene1.readLine();
+    QString d1 = dene1.readLine();
 
     File::writeFile("Book",book_name,author_name,ISBN,page_number,publish_year,keywords);
 

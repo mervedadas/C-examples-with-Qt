@@ -33,11 +33,13 @@ int main(int argc, char *argv[])
 
     }
     else if(choice=='D'){
-        QList<Book> all ;
-        all=File::readFile("Book");
-        all = Book::deleteBook(all);
+        QList<Book> all,newlist ;
+        all = File::readFile("Book");
+        newlist = Book::deleteBook(all);
+        for(int i=0;i<newlist.size();i++)
+            newlist[i].printBook();
         //write again file
-        File::writeFile("Book",all);
+       // File::writeFile("Book",newlist);
 
     }
     else if(choice=='S'){

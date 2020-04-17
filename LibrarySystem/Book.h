@@ -27,6 +27,7 @@ public:
     int getPublish_year() const;
     QList<QString> getKeywords() const;
     int getPage_number() const;
+    ~ Book();
 };
 
 #endif // BOOK_H
