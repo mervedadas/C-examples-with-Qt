@@ -2,32 +2,47 @@
 #include <QDebug>
 #include <time.h>
 #include <QList>
-int buffer_size = 10;
-QList<int> qList;
+#include<QMutex>
+
+QList<int> list;
+QMutex mutex;
+
+
 Thread::Thread()
 {
     qDebug()<<"Thread created";
 }
 
-int Thread::producer()
-{
-    int product;
-    srand (time(NULL));
-    while(1){
-    product = rand() % 10 + 1;
-    if(qList.size()==buffer_size)
-        //wait
-    consumer(product);
+void Thread::producer()
+{   int product;
+    product = 0;
 
-    }
+    mutex.lock();
 
-    return product;
+    while(list.size()!=10){
+       list.append(product);
+       //qDebug()<<list.last();
+       product += 1;
+     }
+
+    mutex.unlock();
+
+
 }
 
-void Thread::consumer(int product)
-{   while(1){
+void Thread::consumer()
+{
 
-    if(qList.size()<=10)
-    qDebug()<<product;
+    mutex.lock();
+
+    while(list.empty()!=true && list.size() <= 10){
+
+        if(list.first()%2==0)
+            qDebug()<<list.first();
+        list.removeFirst();
     }
+
+    mutex.unlock();
+
+
 }

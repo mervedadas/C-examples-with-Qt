@@ -1,13 +1,15 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include<QThread>
 
-class Thread
+
+class Thread : public QThread
 {
 public:
     Thread();
-    int producer();
-    void consumer(int product);
+    void producer();
+    void consumer();
 
 };
 
